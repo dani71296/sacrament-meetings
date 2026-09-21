@@ -15,9 +15,10 @@ export default async function MeetingDetailPage({ params }: MeetingDetailPagePro
     const numericId = parseInt(id, 10);
 
     // Si no es un número válido, tomamos la primera reunión por defecto
-    const meeting = !isNaN(numericId)
-        ? getMeetingById(numericId)
-        : getMeetings()[0];
+    const meetings = await getMeetings();
+    const meeting = id === 'current'
+        ? meetings[0]
+        : await getMeetingById(Number(id));
 
     if (!meeting) {
         notFound();
