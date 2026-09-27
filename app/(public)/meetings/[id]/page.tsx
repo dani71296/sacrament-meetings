@@ -11,14 +11,14 @@ interface MeetingDetailPageProps {
 export default async function MeetingDetailPage({ params }: MeetingDetailPageProps) {
     const { id } = await params;
 
-    // Convertimos el ID de la URL (string) a número para que coincida con getMeetingById(id: number)
+    // Convertimos el ID de la URL (string) a número para la consulta
     const numericId = parseInt(id, 10);
 
-    // Si no es un número válido, tomamos la primera reunión por defecto
+    // Si no es un número válido o no existe, manejamos la búsqueda
     const meetings = await getMeetings();
     const meeting = id === 'current'
         ? meetings[0]
-        : await getMeetingById(Number(id));
+        : await getMeetingById(numericId);
 
     if (!meeting) {
         notFound();

@@ -1,7 +1,9 @@
+import Link from 'next/link';
 import MeetingCard from '@/components/MeetingCard';
 import Search from '@/components/Search';
 import Pagination from '@/components/Pagination';
 import { getMeetings, getMeetingsTotalPages } from '@/lib/meetings-db';
+
 interface MeetingsPageProps {
     searchParams?: Promise<{
         query?: string;
@@ -22,11 +24,21 @@ export default async function MeetingsPage({ searchParams }: MeetingsPageProps) 
 
     return (
         <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <h3 className="text-lg font-semibold text-slate-800">
-                    Scheduled Meetings ({meetings.length})
-                </h3>
-                <Search placeholder="Search meetings..." />
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h3 className="text-xl font-bold text-slate-800">
+                        Scheduled Meetings ({meetings.length})
+                    </h3>
+                </div>
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    <Search placeholder="Search meetings..." />
+                    <Link
+                        href="/meetings/create"
+                        className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-500 transition-colors shrink-0"
+                    >
+                        + Create New Meeting
+                    </Link>
+                </div>
             </div>
 
             {meetings.length === 0 ? (
