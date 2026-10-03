@@ -1,8 +1,10 @@
+import { auth } from '@/auth';
 import NavLinks from './NavLinks';
 
-export default function Header() {
+export default async function Header() {
+    const session = await auth();
+
     const currentDate = new Date().toLocaleDateString('en-US', {
-        weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -15,13 +17,12 @@ export default function Header() {
                     <h1 className="text-2xl font-bold tracking-tight text-white">
                         Sacrament Meeting Planner
                     </h1>
-
                     <p className="text-xs text-white">
                         El Refugio Ward • {currentDate}
                     </p>
                 </div>
 
-                <NavLinks />
+                <NavLinks isAuthenticated={!!session?.user} />
             </div>
         </header>
     );

@@ -5,6 +5,8 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { addMeeting, updateMeeting, deleteMeeting } from './meetings-db';
 import type { MeetingType, Hymn, SpeakerItem, WardBusinessItem } from './types';
+import { signIn, signOut } from '@/auth';
+import { AuthError } from 'next-auth';
 
 export type State = {
     errors?: {
@@ -210,4 +212,30 @@ export async function deleteMeetingAction(id: number) {
         console.error('Database Error:', error);
         throw new Error('Failed to delete meeting.');
     }
+}
+// Agrega esta función al final de tu lib/actions.ts
+export async function authenticate(
+    prevState: string | undefined,
+    formData: FormData,
+) {
+    try {
+        await signIn('credentials', {
+            ...Object.fromEntries(formData),
+            redirectTo: '/',
+        });
+    } catch (error) {
+        if (error instanceof AuthError) {
+            switch (error.type) {
+                case 'CredentialsSignin':
+                    return 'Credenciales inválidas. Verifica tu correo y contraseña.';
+                default:
+                    return 'Ocurrió un error al intentar iniciar sesión.';
+            }
+        }
+        throw error;
+    }
+}
+
+export async function handleSignOut() {
+    await signOut({ redirectTo: '/' });
 }

@@ -3,6 +3,12 @@ import MeetingCard from '@/components/MeetingCard';
 import Search from '@/components/Search';
 import Pagination from '@/components/Pagination';
 import { getMeetings, getMeetingsTotalPages } from '@/lib/meetings-db';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'All Meetings',
+    description: 'Browse all upcoming and past sacrament meeting agendas.',
+};
 
 interface MeetingsPageProps {
     searchParams?: Promise<{

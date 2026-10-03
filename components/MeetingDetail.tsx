@@ -1,6 +1,7 @@
 'use client';
 
 import type { SacramentMeeting } from '@/lib/types';
+import Link from 'next/link';
 
 interface MeetingDetailProps {
     meeting: SacramentMeeting;
@@ -16,17 +17,25 @@ export default function MeetingDetail({ meeting }: MeetingDetailProps) {
 
     return (
         <article className="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-10 max-w-3xl mx-auto print:shadow-none print:border-none print:p-0">
-            {/* Action Bar / Print Button */}
+            {/* Action Bar / Edit & Print Buttons */}
             <div className="flex justify-between items-center mb-6 print:hidden">
                 <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Program Agenda
                 </span>
-                <button
-                    onClick={() => window.print()}
-                    className="bg-slate-800 text-white hover:bg-slate-700 px-4 py-2 rounded-md text-sm font-medium transition-colors"
-                >
-                    🖨️ Print Program
-                </button>
+                <div className="flex items-center gap-2">
+                    <Link
+                        href={`/meetings/${meeting.id}/edit`}
+                        className="bg-amber-600 text-white hover:bg-amber-700 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                    >
+                        ✏️ Edit Meeting
+                    </Link>
+                    <button
+                        onClick={() => window.print()}
+                        className="bg-slate-800 text-white hover:bg-slate-700 px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                    >
+                        🖨️ Print Program
+                    </button>
+                </div>
             </div>
 
             {/* Program Header */}
