@@ -11,18 +11,18 @@ export default function LoginPage() {
 
     return (
         <div className="flex min-h-[60vh] items-center justify-center px-4">
-            <div className="w-full max-max-w-md space-y-6 rounded-lg border p-6 shadow-md bg-white">
+            <div className="w-full max-w-md space-y-6 rounded-lg border p-6 shadow-md bg-white">
                 <h1 className="text-2xl font-bold text-center text-gray-800">
-                    Iniciar Sesión - Obispado
+                    Bishopric Sign In
                 </h1>
                 <p className="text-sm text-gray-600 text-center">
-                    Ingresa tus credenciales para administrar las reuniones sacramentales.
+                    Enter your credentials to manage sacrament meetings.
                 </p>
 
                 <form action={formAction} className="space-y-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700">
-                            Correo Electrónico
+                            Email Address
                         </label>
                         <input
                             type="email"
@@ -35,7 +35,7 @@ export default function LoginPage() {
 
                     <div>
                         <label className="block text-sm font-medium text-gray-700">
-                            Contraseña
+                            Password
                         </label>
                         <input
                             type="password"
@@ -57,7 +57,7 @@ export default function LoginPage() {
                         disabled={isPending}
                         className="w-full rounded-md bg-blue-600 px-4 py-2 text-white font-medium hover:bg-blue-700 transition disabled:opacity-50"
                     >
-                        {isPending ? 'Ingresando...' : 'Iniciar Sesión'}
+                        {isPending ? 'Signing in...' : 'Sign In'}
                     </button>
                 </form>
             </div>
